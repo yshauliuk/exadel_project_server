@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv = require("dotenv");
-const auth = require("./src/routes/auth");
 const cors = require("cors");
+const auth = require("./src/routes/auth");
 dotenv.config({ path: "./config.env" });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -27,12 +27,15 @@ app.get("/", (req, res) => {
 });
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(`mongodb://localhost:${process.env.DB_PORT}`);
+        yield mongoose_1.default
+            .connect(`mongodb://${process.env.DB_PATH}`)
+            .then(() => console.log("[server]: The server is successfully connected to the database"));
     }
     catch (err) {
         console.log(err);
     }
 });
 app.listen(process.env.SERVER_PORT, () => {
+    connectDB();
     console.log(`[server]: Server is running at http://localhost:${process.env.SERVER_PORT}`);
 });

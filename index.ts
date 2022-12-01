@@ -1,9 +1,10 @@
 import express, { Express, Request, Response } from "express";
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
 
 const dotenv = require("dotenv");
-const auth = require("./src/routes/auth");
 const cors = require("cors");
+
+const auth = require("./src/routes/auth");
 
 dotenv.config({ path: "./config.env" });
 
@@ -19,13 +20,20 @@ app.get("/", (req: Request, res: Response) => {
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(`mongodb://localhost:${process.env.DB_PORT}`);
+    await mongoose
+      .connect(`mongodb://${process.env.DB_PATH}`)
+      .then(() =>
+        console.log(
+          "[server]: The server is successfully connected to the database"
+        )
+      );
   } catch (err) {
     console.log(err);
   }
 };
 
 app.listen(process.env.SERVER_PORT, () => {
+  connectDB();
   console.log(
     `[server]: Server is running at http://localhost:${process.env.SERVER_PORT}`
   );
