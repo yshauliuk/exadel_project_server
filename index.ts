@@ -21,7 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 const connectDB = async () => {
   try {
     await mongoose
-      .connect(`mongodb://${process.env.DB_PATH}`)
+      .connect(`mongodb://${process.env.DB_PATH}/exadel_project`)
       .then(() =>
         console.log(
           "[server]: The server is successfully connected to the database"

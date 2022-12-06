@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default
-            .connect(`mongodb://${process.env.DB_PATH}`)
+            .connect(`mongodb://${process.env.DB_PATH}/exadel_project`)
             .then(() => console.log("[server]: The server is successfully connected to the database"));
     }
     catch (err) {
