@@ -12,7 +12,6 @@ export default async (): Promise<Config.InitialOptions> => {
     testMatch: ["**/**/*.test.ts"],
     testEnvironment: "node",
     detectOpenHandles: true,
-    collectCoverage: true,
     transform: { "^.+\\.ts?$": "ts-jest" },
     forceExit: true,
   };
