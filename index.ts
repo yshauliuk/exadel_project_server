@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-import { connectDB } from "./server";
+import { connectDB } from "./dbConnection";
 
 
 const dotenv = require("dotenv");
