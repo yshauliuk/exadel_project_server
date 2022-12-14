@@ -25,6 +25,7 @@ const register = async (req: Request, res: Response) => {
       const createdUser = await User.create({
         email: req.body.email,
         password: req.body.password,
+        dateOfCreation: new Date(),
       });
       res
         .status(201)
