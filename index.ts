@@ -1,11 +1,11 @@
 import express, { Express, Request, Response } from "express";
 import { connectDB } from "./dbConnection";
 
-
 const dotenv = require("dotenv");
 const cors = require("cors");
 
 const auth = require("./src/routes/auth");
+const user = require("./src/routes/user");
 
 dotenv.config({ path: "./config.env" });
 
@@ -14,6 +14,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 app.use(auth);
+app.use(user);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Home");
