@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { IPhoto } from "./photoModel";
 
 const photoSchema = require('./photoModel')
 
@@ -24,3 +23,4 @@ const userSchema = new Schema<IUser>({
 });
 
 module.exports = model<IUser>("User", userSchema);
+
