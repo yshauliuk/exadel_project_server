@@ -5,8 +5,14 @@ export interface IUser {
   password: string;
   fullName: string;
   birthday: Date;
-  age: Number;
+  age: number;
   dateOfCreation: Date;
+  Photos: Schema;
+}
+
+export interface IPhoto {
+  name: string;
+  dateOfLoading: Date;
 }
 
 const userSchema = new Schema<IUser>({
@@ -16,6 +22,10 @@ const userSchema = new Schema<IUser>({
   birthday: { type: Date },
   age: { type: Number },
   dateOfCreation: { type: Date, required: true },
+  Photos: new Schema<IPhoto>({
+    name: { type: String },
+    dateOfLoading: { type: Date },
+  }),
 });
 
 module.exports = model<IUser>("User", userSchema);

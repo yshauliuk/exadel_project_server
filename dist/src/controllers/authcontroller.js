@@ -34,6 +34,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const createdUser = yield User.create({
                 email: req.body.email,
                 password: req.body.password,
+                dateOfCreation: new Date(),
             });
             res
                 .status(201)
