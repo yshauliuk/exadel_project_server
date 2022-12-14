@@ -1,4 +1,7 @@
 import { Schema, model } from "mongoose";
+import { IPhoto } from "./photoModel";
+
+const photoSchema = require('./photoModel')
 
 export interface IUser {
   email: string;
@@ -10,11 +13,6 @@ export interface IUser {
   Photos: Schema;
 }
 
-export interface IPhoto {
-  name: string;
-  dateOfLoading: Date;
-}
-
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -22,10 +20,7 @@ const userSchema = new Schema<IUser>({
   birthday: { type: Date },
   age: { type: Number },
   dateOfCreation: { type: Date, required: true },
-  Photos: new Schema<IPhoto>({
-    name: { type: String },
-    dateOfLoading: { type: Date },
-  }),
+  Photos: photoSchema,
 });
 
 module.exports = model<IUser>("User", userSchema);
