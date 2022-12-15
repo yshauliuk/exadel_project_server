@@ -1,13 +1,12 @@
 import { Schema, model } from "mongoose";
 
-const photoSchema = require('./photoModel')
+const photoSchema = require("./photoModel");
 
 export interface IUser {
   email: string;
   password: string;
   fullName: string;
   birthday: Date;
-  age: number;
   dateOfCreation: Date;
   Photos: Schema;
 }
@@ -17,10 +16,8 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
   fullName: { type: String },
   birthday: { type: Date },
-  age: { type: Number },
   dateOfCreation: { type: Date, required: true },
-  Photos: photoSchema,
+  Photos: [photoSchema],
 });
 
 module.exports = model<IUser>("User", userSchema);
-

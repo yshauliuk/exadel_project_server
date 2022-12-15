@@ -10,8 +10,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User = require("../models/userModel");
-const userData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User.findOne({ id: req.body.userId });
-    res.send(user);
+const userGetData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield User.findOne({ _id: req.body.userId });
+        res.send(user);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
-module.exports = userData;
+const userUpdateData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield User.findOneAndUpdate({ _id: req.body.userId }, {
+            fullName: req.body.fullName,
+            birthday: req.body.birthday,
+        });
+        res.status(200).send("Your personal data have beed updated");
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+module.exports = {
+    userGetData,
+    userUpdateData,
+};
