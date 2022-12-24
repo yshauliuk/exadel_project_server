@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     user && user.password === req.body.password
@@ -12,11 +12,11 @@ const login = async (req: Request, res: Response) => {
           .send(jwt.sign({ id: user.id, email: user.email }, "secret"))
       : res.status(401).send("Bad credentials");
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
-const register = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -34,7 +34,7 @@ const register = async (req: Request, res: Response) => {
         );
     }
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
