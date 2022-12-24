@@ -8,7 +8,7 @@ export interface IUser {
   fullName: string;
   birthday: Date;
   dateOfCreation: Date;
-  Photos: Schema;
+  photos: Schema;
 }
 
 const userSchema = new Schema<IUser>({
@@ -17,7 +17,7 @@ const userSchema = new Schema<IUser>({
   fullName: { type: String },
   birthday: { type: Date },
   dateOfCreation: { type: Date, required: true },
-  Photos: [photoSchema],
+  photos: [photoSchema],
 });
 
 module.exports = model<IUser>("User", userSchema);
