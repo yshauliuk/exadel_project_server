@@ -8,6 +8,6 @@ const userSchema = new mongoose_1.Schema({
     fullName: { type: String },
     birthday: { type: Date },
     dateOfCreation: { type: Date, required: true },
-    Photos: [photoSchema],
+    photos: [photoSchema],
 });
 module.exports = (0, mongoose_1.model)("User", userSchema);

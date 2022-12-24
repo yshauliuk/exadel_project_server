@@ -28,6 +28,7 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.connectDB = connectDB;
 const disconnectDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    mongoose_1.default.disconnect();
+    yield mongoose_1.default.connection.db.dropCollection("users");
+    yield mongoose_1.default.disconnect();
 });
 exports.disconnectDB = disconnectDB;

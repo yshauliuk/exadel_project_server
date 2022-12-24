@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.findOne({ email: req.body.email });
         user && user.password === req.body.password
@@ -21,10 +21,10 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             : res.status(401).send("Bad credentials");
     }
     catch (err) {
-        console.log(err);
+        next(err);
     }
 });
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.findOne({ email: req.body.email });
         if (user) {
@@ -42,7 +42,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (err) {
-        console.log(err);
+        next(err);
     }
 });
 module.exports = {
