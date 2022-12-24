@@ -15,6 +15,8 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 app.use(fileUpload());
+app.use(express.static(`${process.env.IMG_PATH}`));
+
 app.use(auth);
 app.use(user);
 
