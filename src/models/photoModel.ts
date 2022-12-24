@@ -6,8 +6,8 @@ export interface IPhoto {
 }
 
 const photoSchema = new Schema<IPhoto>({
-  name: { type: String },
-  dateOfLoading: { type: Date },
+  name: { type: String, required: true },
+  dateOfLoading: { type: Date, required: true },
 });
 
 module.exports = photoSchema;
