@@ -1,4 +1,4 @@
-import mongoose, { Collection } from "mongoose";
+import mongoose from "mongoose";
 const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config.env" });
@@ -18,5 +18,6 @@ export const connectDB = async () => {
 };
 
 export const disconnectDB = async () => {
-  mongoose.disconnect();
+  await mongoose.connection.db.dropCollection("users"); 
+  await mongoose.disconnect();
 };

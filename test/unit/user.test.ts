@@ -4,17 +4,18 @@ import { connectDB, disconnectDB } from "../conn";
 const User = require("../../src/models/userModel");
 
 describe("Work with User manipulation", () => {
-  beforeAll(() => {
-    connectDB();
+  beforeAll(async () => {
+    await connectDB();
   });
-  afterAll(() => {
-    disconnectDB();
+  afterAll(async () => {
+    await disconnectDB();
   });
 
   test("creation a new user", async () => {
     const user = await User.create({
       email: "test@gmail.com",
       password: "test",
+      dateOfCreation: new Date(),
     });
     expect(user.email).toBe("test@gmail.com");
   });
