@@ -3,6 +3,7 @@ import { connectDB } from "./dbConnection";
 
 const dotenv = require("dotenv");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 
 const auth = require("./src/routes/auth");
 const user = require("./src/routes/user");
@@ -13,6 +14,7 @@ const app: Express = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload());
 app.use(auth);
 app.use(user);
 
