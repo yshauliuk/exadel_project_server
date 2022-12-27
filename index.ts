@@ -7,6 +7,7 @@ const fileUpload = require("express-fileupload");
 
 const auth = require("./src/routes/auth");
 const user = require("./src/routes/user");
+const event = require("./src/routes/event");
 
 dotenv.config({ path: "./config.env" });
 
@@ -19,6 +20,7 @@ app.use(express.static(`${process.env.IMG_PATH}`));
 
 app.use(auth);
 app.use(user);
+app.use(event);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Home");
