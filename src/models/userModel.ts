@@ -9,6 +9,7 @@ export interface IUser {
   birthday: Date;
   dateOfCreation: Date;
   photos: Schema;
+  isAdmin: boolean;
 }
 
 const userSchema = new Schema<IUser>({
@@ -18,6 +19,7 @@ const userSchema = new Schema<IUser>({
   birthday: { type: Date },
   dateOfCreation: { type: Date, required: true },
   photos: [photoSchema],
+  isAdmin: { type: Boolean, default: false },
 });
 
 module.exports = model<IUser>("User", userSchema);

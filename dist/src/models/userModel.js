@@ -9,5 +9,6 @@ const userSchema = new mongoose_1.Schema({
     birthday: { type: Date },
     dateOfCreation: { type: Date, required: true },
     photos: [photoSchema],
+    isAdmin: { type: Boolean, default: false },
 });
 module.exports = (0, mongoose_1.model)("User", userSchema);
