@@ -15,9 +15,12 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const user = yield User.findOne({ email: req.body.email });
         user && user.password === req.body.password
-            ? res
-                .status(200)
-                .send(jwt.sign({ id: user.id, email: user.email }, "secret"))
+            ? res.status(200).send(jwt.sign({
+                id: user.id,
+                email: user.email,
+                fullName: user.fullName,
+                isAdmin: user.isAdmin,
+            }, "secret"))
             : res.status(401).send("Bad credentials");
     }
     catch (err) {
@@ -31,14 +34,18 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             res.status(409).send("User already exist");
         }
         else {
-            const createdUser = yield User.create({
+            yield User.create({
                 email: req.body.email,
                 password: req.body.password,
                 dateOfCreation: new Date(),
             });
-            res
-                .status(201)
-                .send(jwt.sign({ id: createdUser.id, email: createdUser.email }, "secret"));
+            const user = yield User.findOne({ email: req.body.email });
+            res.status(201).send(jwt.sign({
+                id: user.id,
+                email: user.email,
+                fullName: user.fullName,
+                isAdmin: user.isAdmin,
+            }, "secret"));
         }
     }
     catch (err) {
