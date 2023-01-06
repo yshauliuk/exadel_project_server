@@ -17,4 +17,80 @@ const createEvent = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-module.exports = { createEvent };
+const getAllEvents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const events = await Event.find({});
+    res.send(events);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getUpcomingEvents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const upcomingEvents = await Event.find({
+      start_date: { $gt: new Date() },
+    });
+    res.status(200).send(upcomingEvents);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteEvent = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await Event.findOneAndDelete({ _id: req.headers.data });
+    res.status(200).send("You have successfully deleted the event");
+  } catch (err) {
+    next(err);
+  }
+};
+
+const registerForEvent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await Event.findOneAndUpdate(
+      { _id: req.body.eventId },
+      { $push: { participants: req.body.userId } }
+    );
+    res.status(200).send("You successfully registered for event");
+  } catch (err) {
+    next(err);
+  }
+};
+
+const cancelEventRegistration = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await Event.findOneAndUpdate(
+      { _id: req.body.eventId },
+      { $pull: { participants: req.body.userId } }
+    );
+    res.status(200).send("You successfully cancel the registartion");
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {
+  createEvent,
+  getAllEvents,
+  getUpcomingEvents,
+  deleteEvent,
+  registerForEvent,
+  cancelEventRegistration,
+};

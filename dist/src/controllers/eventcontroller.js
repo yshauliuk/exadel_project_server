@@ -25,4 +25,58 @@ const createEvent = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         next(err);
     }
 });
-module.exports = { createEvent };
+const getAllEvents = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const events = yield Event.find({});
+        res.send(events);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const getUpcomingEvents = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const upcomingEvents = yield Event.find({
+            start_date: { $gt: new Date() },
+        });
+        res.status(200).send(upcomingEvents);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const deleteEvent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield Event.findOneAndDelete({ _id: req.headers.data });
+        res.status(200).send("You have successfully deleted the event");
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const registerForEvent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield Event.findOneAndUpdate({ _id: req.body.eventId }, { $push: { participants: req.body.userId } });
+        res.status(200).send("You successfully registered for event");
+    }
+    catch (err) {
+        next(err);
+    }
+});
+const cancelEventRegistration = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield Event.findOneAndUpdate({ _id: req.body.eventId }, { $pull: { participants: req.body.userId } });
+        res.status(200).send("You successfully cancel the registartion");
+    }
+    catch (err) {
+        next(err);
+    }
+});
+module.exports = {
+    createEvent,
+    getAllEvents,
+    getUpcomingEvents,
+    deleteEvent,
+    registerForEvent,
+    cancelEventRegistration,
+};

@@ -7,5 +7,6 @@ const eventSchema = new mongoose_1.Schema({
     start_date: { type: Date },
     is_online: { type: Boolean },
     address: { type: String },
+    participants: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User" }],
 });
 module.exports = (0, mongoose_1.model)("Event", eventSchema);
